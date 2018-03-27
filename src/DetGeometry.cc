@@ -16,9 +16,22 @@ DetGeometry::DetGeometry() {
 DetGeometry::~DetGeometry() {}
 
 G4VPhysicalVolume* DetGeometry::Construct(){
+    G4Isotope* C12 = new G4Isotope("C12",6,12);
+    G4Isotope* C13 = new G4Isotope("C13",6,13);
 
+    G4Element* C = new G4Element("Carbon", "C", 2);
+    C->AddIsotope(C12,0.98);
+    C->AddIsotope(C13,0.02);
 
-    return physWorld;
+    std::ofstream fout("../result.txt");
+    fout<<C;
+
+   // G4Material* CsI = new G4Material("CsI",4*g/cm3,2,kStateSolid);
+  //  CsI->AddElement(nist->FindElement(3),1);
+   // CsI->AddElement(nist->FindElement(4),5);
+  //  fout<<CsI<<'\n';
+    fout<<'\n'<<nist->FindOrBuildMaterial("G4_CESIUM_IODIDE");
+     //return physWorld;
 }
 
 
